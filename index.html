@@ -17,16 +17,29 @@
 
 </style>
 <h3 id="nodeName">Mouse over nodes to see more info</h3>
+<p><i>Angular2 code size distribution (non-minified, comments stripped)</i></p>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
     var nodeName = document.querySelector('#nodeName');
 
+    function getSize(d) {
+        if (d.size) {
+            return d.size;
+        } else {
+            return d.children.map(getSize).reduce(function(previous, current) {
+                return previous + current;
+            }, 0);
+        }
+    }
+
+
     function displayNameAndSize(d) {
         var name = d.name;
-        var size = ' (' + Math.round((d.value / d.parent.value)*100, -2) + ' %)';
+        var sizePercent = ' (' + Math.round((d.value / d.parent.value)*100, -2) + ' %)';
+        var size = ': ' + new Number(getSize(d)).toLocaleString() + ' bytes';
 
-        nodeName.innerText = name + size;
+        nodeName.innerText = name + size + sizePercent;
     }
 
     var width = 960,
