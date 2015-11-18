@@ -7,7 +7,7 @@ function includeFile(name, stats) {
     return path.extname(name) === '.js';
 }
 
-var excludeDirs = ['transform', 'mock', 'testing'];
+var excludeDirs = ['transform', 'mock', 'testing', 'tools'];
 function includeDir(name, stats) {
     return excludeDirs.indexOf(name) === -1;
 }
